@@ -119,7 +119,7 @@ a:hover {
 /* --- Layout --- */
 
 .container {
-  max-width: 720px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 4rem 1.5rem 4rem;
   position: relative;
@@ -303,10 +303,9 @@ a:hover {
 }
 
 .product-list a {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-weight: 500;
-  font-size: 0.88rem;
-  letter-spacing: -0.01em;
+  font-size: 0.9rem;
 }
 
 /* --- Articles --- */
