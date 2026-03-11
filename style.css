@@ -26,7 +26,7 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -232,7 +232,7 @@ a:hover {
 }
 
 .bio-edit-btn {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 0.7rem;
   font-weight: 500;
   padding: 0.2rem 0.6rem;
@@ -272,7 +272,7 @@ a:hover {
 }
 
 .quote p {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 0.9rem;
   font-weight: 400;
   font-style: normal;
@@ -288,7 +288,7 @@ a:hover {
 .quote cite {
   display: block;
   margin-top: 0.6rem;
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 0.72rem;
   font-style: normal;
   font-weight: 500;
@@ -314,7 +314,7 @@ a:hover {
 }
 
 .section-title {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -342,7 +342,7 @@ a:hover {
 }
 
 .product-list a {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-weight: 500;
   font-size: 0.9rem;
 }
@@ -504,7 +504,7 @@ a:hover {
 }
 
 .admin-input {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 0.8rem;
   padding: 0.35rem 0.5rem;
   border: 1px solid var(--border);
@@ -534,7 +534,7 @@ a:hover {
 }
 
 .admin-btn {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 0.8rem;
   font-weight: 600;
   padding: 0.35rem 0.9rem;
@@ -571,7 +571,7 @@ a:hover {
   font-size: 3.5rem;
   font-weight: 200;
   transform: rotate(-12deg);
-  font-family: -apple-system, 'Helvetica Neue', sans-serif;
+  font-family: var(--font-serif);
 }
 
 .mac-deco--option {
@@ -580,7 +580,7 @@ a:hover {
   font-size: 2.8rem;
   font-weight: 200;
   transform: rotate(8deg);
-  font-family: -apple-system, 'Helvetica Neue', sans-serif;
+  font-family: var(--font-serif);
 }
 
 .mac-deco--happy {
