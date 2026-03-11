@@ -299,7 +299,7 @@ a:hover {
 }
 
 .product-list li + li {
-  border-top: 1px solid var(--border-light);
+  border-top: none;
 }
 
 .product-list a {
