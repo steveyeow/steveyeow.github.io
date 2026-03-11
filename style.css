@@ -553,9 +553,38 @@ a:hover {
   transform: rotate(-6deg);
 }
 
+.mac-deco--finder {
+  top: 22%;
+  right: 6%;
+  width: 52px;
+  height: 65px;
+  transform: rotate(5deg);
+  opacity: 0.28;
+}
+
+.mac-deco--watch {
+  bottom: 35%;
+  left: 8%;
+  width: 28px;
+  height: 44px;
+  transform: rotate(10deg);
+  opacity: 0.25;
+}
+
+.mac-deco--apple {
+  bottom: 6%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translateX(-50%);
+  opacity: 0.18;
+}
+
 @media (max-width: 900px) {
   .mac-deco--cmd,
-  .mac-deco--option {
+  .mac-deco--option,
+  .mac-deco--finder,
+  .mac-deco--watch {
     display: none;
   }
   .mac-deco--happy {
@@ -565,6 +594,9 @@ a:hover {
     left: 2%;
     top: auto;
     bottom: 8%;
+  }
+  .mac-deco--apple {
+    opacity: 0.15;
   }
 }
 
