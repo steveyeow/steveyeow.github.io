@@ -57,7 +57,35 @@
     }
   }
 
+  // ——— Articles ———
+  const articleListEn = document.getElementById('articleListEn');
+  const articleListZh = document.getElementById('articleListZh');
+
+  function renderArticleList(el, articles) {
+    el.innerHTML = articles.map(a => `
+      <li>
+        <a href="${a.url}" target="_blank" rel="noopener">${a.title}</a>
+        <span class="article-date">${formatDate(a.date)}</span>
+      </li>
+    `).join('');
+  }
+
+  async function loadArticles() {
+    try {
+      const res = await fetch('articles.json?' + Date.now());
+      const articles = await res.json();
+      renderArticleList(articleListEn, articles.filter(a => a.source === 'substack' || a.source === 'x'));
+      renderArticleList(articleListZh, articles.filter(a => a.source === 'wechat'));
+    } catch { /* empty */ }
+  }
+
+  function formatDate(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
   loadBio();
+  loadArticles();
   syncBioEditBar();
 
   const timeline = document.getElementById('timeline');
@@ -103,11 +131,6 @@
     localStorage.setItem(HIDDEN_KEY, JSON.stringify([...hiddenIds]));
   }
 
-  function formatDate(dateStr) {
-    const d = new Date(dateStr + 'T00:00:00');
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  }
-
   function render() {
     const visible = tweets.filter(t => !hiddenIds.has(t.id));
 
@@ -142,23 +165,30 @@
     return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   }
 
-  // Admin mode: triple-click the section title to reveal
+  // Admin mode: triple-click the section title or the bio to reveal
+  function enableAdmin() {
+    adminToggle.classList.add('visible');
+    bioEditBar.classList.add('visible');
+    localStorage.setItem(ADMIN_KEY, '1');
+  }
+
+  function addTripleClickListener(el) {
+    let clickCount = 0;
+    let clickTimer = null;
+    el.addEventListener('click', (e) => {
+      if (e.target === adminToggle || adminToggle.contains(e.target)) return;
+      clickCount++;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(() => {
+        if (clickCount >= 3) enableAdmin();
+        clickCount = 0;
+      }, 500);
+    });
+  }
+
   const sectionHeader = adminToggle.parentElement;
-  let clickCount = 0;
-  let clickTimer = null;
-  sectionHeader.addEventListener('click', (e) => {
-    if (e.target === adminToggle || adminToggle.contains(e.target)) return;
-    clickCount++;
-    clearTimeout(clickTimer);
-    clickTimer = setTimeout(() => {
-      if (clickCount >= 3) {
-        adminToggle.classList.add('visible');
-        bioEditBar.classList.add('visible');
-        localStorage.setItem(ADMIN_KEY, '1');
-      }
-      clickCount = 0;
-    }, 400);
-  });
+  addTripleClickListener(sectionHeader);
+  addTripleClickListener(bioEl);
 
   adminToggle.addEventListener('click', () => {
     const isOpen = adminPanel.classList.toggle('open');

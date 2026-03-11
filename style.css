@@ -1,15 +1,17 @@
 :root {
-  --bg: #ffffff;
-  --text: #111;
-  --text-secondary: #444;
-  --text-tertiary: #888;
-  --link: #0969da;
-  --link-hover: #0550ae;
-  --border: #e1e4e8;
-  --border-light: #eef0f2;
-  --quote-bg: #f6f8fa;
+  --bg: #fafafa;
+  --bg-secondary: #f3f4f6;
+  --text: #111827;
+  --text-secondary: #4b5563;
+  --text-tertiary: #9ca3af;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --border: #e5e7eb;
+  --border-light: #f0f0f0;
   --font-serif: 'Newsreader', Georgia, serif;
   --font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 *, *::before, *::after {
@@ -30,30 +32,101 @@ body {
   line-height: 1.6;
   font-size: 15px;
   font-weight: 400;
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -10%;
+  right: -15%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 700px;
+  max-height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 200, 255, 0.25) 0%, rgba(200, 180, 255, 0.12) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -5%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 230, 255, 0.2) 0%, rgba(180, 220, 255, 0.1) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-orb--rose {
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50vw;
+  height: 50vw;
+  max-width: 550px;
+  max-height: 550px;
+  background: radial-gradient(circle, rgba(255, 200, 210, 0.18) 0%, rgba(255, 180, 200, 0.08) 40%, transparent 70%);
 }
 
 ::selection {
-  background: #c8def4;
+  background: rgba(99, 102, 241, 0.15);
 }
 
 a {
-  color: var(--link);
+  color: var(--accent);
   text-decoration: none;
-  transition: color 0.15s;
+  transition: color 0.2s var(--ease);
 }
 
 a:hover {
-  color: var(--link-hover);
+  color: var(--accent-hover);
   text-decoration: underline;
 }
 
-.container {
-  max-width: 620px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem 4rem;
+/* --- Animations --- */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Header */
+.animate-in {
+  animation: fadeUp 0.6s var(--ease) both;
+}
+
+/* --- Layout --- */
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Header --- */
 
 .header-top {
   display: flex;
@@ -81,21 +154,14 @@ a:hover {
 }
 
 .social a {
-  color: #999;
+  color: var(--text-tertiary);
   display: flex;
-  transition: color 0.15s;
+  transition: color 0.2s var(--ease);
 }
 
 .social a:hover {
   color: var(--text);
   text-decoration: none;
-}
-
-.social-note {
-  font-size: 0.7rem;
-  color: #aaa;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
 }
 
 .bio {
@@ -108,11 +174,13 @@ a:hover {
 
 .bio[contenteditable="true"] {
   outline: none;
-  border: 1px solid var(--link);
+  border: 1px solid var(--accent);
   border-radius: 4px;
   padding: 0.5rem 0.6rem;
-  background: #f6f9ff;
+  background: #fff;
 }
+
+/* --- Bio Edit --- */
 
 .bio-edit-bar {
   display: none;
@@ -134,63 +202,62 @@ a:hover {
   background: #fff;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  transition: all 0.15s var(--ease);
 }
 
 .bio-edit-btn:hover {
   color: var(--text);
-  border-color: #aaa;
+  border-color: var(--text-tertiary);
 }
 
 .bio-edit-btn--save {
-  background: var(--link);
+  background: var(--accent);
   color: #fff;
-  border-color: var(--link);
+  border-color: var(--accent);
 }
 
 .bio-edit-btn--save:hover {
-  background: var(--link-hover);
-  border-color: var(--link-hover);
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
   color: #fff;
 }
 
-/* Divider */
-
-.divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 2rem 0;
-}
-
-/* Quote */
+/* --- Quote --- */
 
 .quote {
-  background: var(--quote-bg);
-  border-radius: 8px;
-  padding: 1.4rem 1.6rem;
-  border-left: 3px solid var(--border);
-  margin: 0;
+  border-left: 2px solid var(--accent);
+  padding: 0 0 0 1.25rem;
+  margin: 2.5rem 0;
+  background: none;
+  border-radius: 0;
 }
 
 .quote p {
-  font-family: var(--font-serif);
-  font-size: 0.95rem;
-  font-weight: 400;
-  line-height: 1.75;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.8;
   color: var(--text-secondary);
+  letter-spacing: 0.01em;
 }
 
 .quote cite {
   display: block;
   margin-top: 0.6rem;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-style: normal;
   font-weight: 500;
   color: var(--text-tertiary);
+  letter-spacing: 0.02em;
 }
 
-/* Section */
+/* --- Section --- */
+
+.section {
+  margin-top: 2.5rem;
+}
 
 .section-header {
   display: flex;
@@ -213,7 +280,7 @@ a:hover {
   margin-bottom: 0.8rem;
 }
 
-/* Products */
+/* --- Products --- */
 
 .product-list {
   list-style: none;
@@ -232,13 +299,46 @@ a:hover {
 }
 
 .product-list a {
-  font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-family: var(--font-mono);
   font-weight: 500;
   font-size: 0.88rem;
   letter-spacing: -0.01em;
 }
 
-/* Timeline */
+/* --- Articles --- */
+
+.article-list {
+  list-style: none;
+}
+
+.article-list li {
+  padding: 0.4rem 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.article-list li + li {
+  border-top: 1px solid var(--border-light);
+}
+
+.article-list a {
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.article-date {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* --- Timeline --- */
 
 .timeline {
   display: flex;
@@ -288,11 +388,11 @@ a:hover {
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--text-tertiary);
-  transition: color 0.15s;
+  transition: color 0.15s var(--ease);
 }
 
 .timeline-link:hover {
-  color: var(--link);
+  color: var(--accent);
 }
 
 .timeline-delete {
@@ -301,24 +401,24 @@ a:hover {
   right: 0;
   background: none;
   border: none;
-  color: #ccc;
+  color: var(--border);
   cursor: pointer;
   font-size: 0.85rem;
   line-height: 1;
   padding: 0.2rem;
   display: none;
-  transition: color 0.15s;
+  transition: color 0.15s var(--ease);
 }
 
 .timeline-delete:hover {
-  color: #e33;
+  color: #c44;
 }
 
 .admin-active .timeline-delete {
   display: block;
 }
 
-/* Admin panel */
+/* --- Admin Panel --- */
 
 .admin-toggle {
   background: none;
@@ -328,13 +428,13 @@ a:hover {
   cursor: pointer;
   font-size: 0.82rem;
   padding: 0.15rem 0.45rem;
-  transition: color 0.15s, border-color 0.15s;
+  transition: all 0.15s var(--ease);
   display: none;
 }
 
 .admin-toggle:hover {
   color: var(--text);
-  border-color: #aaa;
+  border-color: var(--text-tertiary);
 }
 
 .admin-toggle.visible {
@@ -345,7 +445,7 @@ a:hover {
   display: none;
   margin-bottom: 1rem;
   padding: 0.85rem;
-  background: var(--quote-bg);
+  background: var(--bg-secondary);
   border-radius: 6px;
   border: 1px solid var(--border-light);
 }
@@ -370,11 +470,11 @@ a:hover {
   background: #fff;
   color: var(--text);
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s var(--ease);
 }
 
 .admin-input:focus {
-  border-color: var(--link);
+  border-color: var(--accent);
 }
 
 .admin-input:first-child {
@@ -396,16 +496,16 @@ a:hover {
   font-size: 0.8rem;
   font-weight: 600;
   padding: 0.35rem 0.9rem;
-  background: var(--link);
+  background: var(--accent);
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s var(--ease);
 }
 
 .admin-btn:hover {
-  background: var(--link-hover);
+  background: var(--accent-hover);
 }
 
 .admin-hint {
@@ -413,7 +513,64 @@ a:hover {
   color: var(--text-tertiary);
 }
 
-/* Responsive */
+/* --- Macintosh Decorations --- */
+
+.mac-deco {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  color: var(--border);
+  opacity: 0.35;
+}
+
+.mac-deco--cmd {
+  top: 12%;
+  left: 6%;
+  font-size: 3.5rem;
+  font-weight: 200;
+  transform: rotate(-12deg);
+  font-family: -apple-system, 'Helvetica Neue', sans-serif;
+}
+
+.mac-deco--option {
+  bottom: 18%;
+  right: 7%;
+  font-size: 2.8rem;
+  font-weight: 200;
+  transform: rotate(8deg);
+  font-family: -apple-system, 'Helvetica Neue', sans-serif;
+}
+
+.mac-deco--happy {
+  top: 55%;
+  left: 4%;
+  width: 48px;
+  height: 48px;
+  transform: rotate(-6deg);
+}
+
+@media (max-width: 900px) {
+  .mac-deco--cmd,
+  .mac-deco--option {
+    display: none;
+  }
+  .mac-deco--happy {
+    opacity: 0.2;
+    width: 36px;
+    height: 36px;
+    left: 2%;
+    top: auto;
+    bottom: 8%;
+  }
+}
+
+@media (max-width: 640px) {
+  .mac-deco {
+    display: none;
+  }
+}
+
+/* --- Responsive --- */
 
 @media (max-width: 640px) {
   .container {
@@ -434,7 +591,16 @@ a:hover {
   }
 
   .quote {
-    padding: 1.1rem 1.2rem;
+    margin: 2rem 0;
+    padding-left: 1rem;
+  }
+
+  .quote p {
+    font-size: 0.9rem;
+  }
+
+  .section {
+    margin-top: 2rem;
   }
 
   .timeline-item {
@@ -444,6 +610,11 @@ a:hover {
 
   .timeline-date {
     min-width: auto;
+  }
+
+  .article-list li {
+    flex-direction: column;
+    gap: 0.15rem;
   }
 
   .admin-add {
