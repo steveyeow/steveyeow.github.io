@@ -172,12 +172,43 @@ a:hover {
   white-space: pre-line;
 }
 
-.credentials {
-  font-size: 0.78rem;
+.aside-bio {
+  position: absolute;
+  top: 4.5rem;
+  left: calc(100% + 2.5rem);
+  width: 180px;
+  padding-left: 1rem;
+  border-left: 1px solid var(--border-light);
+}
+
+.about-list {
+  list-style: none;
+}
+
+.about-list li {
+  font-size: 0.68rem;
   font-weight: 400;
   line-height: 1.6;
   color: var(--text-tertiary);
-  margin-top: 0.5rem;
+  padding-left: 0.75rem;
+  position: relative;
+}
+
+.about-list li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--border);
+}
+
+.about-list li + li {
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 1280px) {
+  .aside-bio {
+    display: none;
+  }
 }
 
 .bio[contenteditable="true"] {
@@ -246,7 +277,7 @@ a:hover {
   font-weight: 400;
   font-style: normal;
   line-height: 1.8;
-  color: var(--text);
+  color: var(--text-secondary);
   letter-spacing: 0.01em;
 }
 
@@ -390,7 +421,7 @@ a:hover {
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
-  color: var(--text);
+  color: var(--text-secondary);
 }
 
 .timeline-link {

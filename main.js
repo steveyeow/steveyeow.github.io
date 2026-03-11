@@ -4,59 +4,6 @@
   const STORAGE_KEY = 'steve_tweets_local';
   const HIDDEN_KEY = 'steve_tweets_hidden';
   const ADMIN_KEY = 'steve_admin';
-  const BIO_KEY = 'steve_bio';
-
-  // ——— Bio ———
-  const bioEl = document.getElementById('bio');
-  const bioEditBar = document.getElementById('bioEditBar');
-  const bioEditBtn = document.getElementById('bioEditBtn');
-  let bioEditing = false;
-
-  async function loadBio() {
-    const saved = localStorage.getItem(BIO_KEY);
-    if (saved) {
-      bioEl.textContent = saved;
-      return;
-    }
-    try {
-      const res = await fetch('bio.json?' + Date.now());
-      const data = await res.json();
-      bioEl.textContent = data.lines.join('\n');
-    } catch {
-      bioEl.textContent = 'Building AGI for the rest of us';
-    }
-  }
-
-  function enterBioEdit() {
-    bioEditing = true;
-    bioEl.contentEditable = 'true';
-    bioEl.focus();
-    bioEditBtn.textContent = 'Save';
-    bioEditBtn.classList.add('bio-edit-btn--save');
-  }
-
-  function saveBioEdit() {
-    bioEditing = false;
-    bioEl.contentEditable = 'false';
-    const text = bioEl.innerText.trim();
-    localStorage.setItem(BIO_KEY, text);
-    bioEl.textContent = text;
-    bioEditBtn.textContent = 'Edit';
-    bioEditBtn.classList.remove('bio-edit-btn--save');
-  }
-
-  bioEditBtn.addEventListener('click', () => {
-    if (bioEditing) saveBioEdit();
-    else enterBioEdit();
-  });
-
-  // Show edit bar when admin mode is active
-  function syncBioEditBar() {
-    if (localStorage.getItem(ADMIN_KEY) === '1') {
-      bioEditBar.classList.add('visible');
-    }
-  }
-
   // ——— Articles ———
   const articleListEn = document.getElementById('articleListEn');
   const articleListZh = document.getElementById('articleListZh');
@@ -84,9 +31,7 @@
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
-  loadBio();
   loadArticles();
-  syncBioEditBar();
 
   const timeline = document.getElementById('timeline');
   const adminToggle = document.getElementById('adminToggle');
@@ -165,10 +110,8 @@
     return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   }
 
-  // Admin mode: triple-click the section title or the bio to reveal
   function enableAdmin() {
     adminToggle.classList.add('visible');
-    bioEditBar.classList.add('visible');
     localStorage.setItem(ADMIN_KEY, '1');
   }
 
@@ -188,7 +131,6 @@
 
   const sectionHeader = adminToggle.parentElement;
   addTripleClickListener(sectionHeader);
-  addTripleClickListener(bioEl);
 
   adminToggle.addEventListener('click', () => {
     const isOpen = adminPanel.classList.toggle('open');
