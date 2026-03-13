@@ -79,7 +79,15 @@
   function render() {
     const visible = tweets.filter(t => !hiddenIds.has(t.id));
 
-    timeline.innerHTML = visible.map(t => `
+    let html = '';
+    let currentYear = '';
+    for (const t of visible) {
+      const year = t.date.slice(0, 4);
+      if (year !== currentYear) {
+        currentYear = year;
+        html += `<div class="timeline-year">${year}</div>`;
+      }
+      html += `
       <div class="timeline-item" data-id="${t.id}">
         <span class="timeline-date">${formatDate(t.date)}</span>
         <div class="timeline-content">
@@ -87,8 +95,9 @@
           ${t.url ? `<a class="timeline-link" href="${escapeHtml(t.url)}" target="_blank" rel="noopener">→ view on X</a>` : ''}
         </div>
         <button class="timeline-delete" title="Hide this post">&times;</button>
-      </div>
-    `).join('');
+      </div>`;
+    }
+    timeline.innerHTML = html;
 
     timeline.querySelectorAll('.timeline-delete').forEach(btn => {
       btn.addEventListener('click', () => {

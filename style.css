@@ -387,6 +387,18 @@ a:hover {
   flex-direction: column;
 }
 
+.timeline-year {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+  padding: 1.2rem 0 0.4rem;
+}
+
+.timeline-year:first-child {
+  padding-top: 0;
+}
+
 .timeline-item {
   display: flex;
   gap: 1.25rem;
@@ -395,8 +407,8 @@ a:hover {
   position: relative;
 }
 
-.timeline-item:first-child {
-  padding-top: 0;
+.timeline-year + .timeline-item {
+  padding-top: 0.5rem;
 }
 
 .timeline-item:last-child {
