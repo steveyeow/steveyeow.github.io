@@ -1,17 +1,51 @@
 :root {
   --bg: #fafafa;
   --bg-secondary: #f3f4f6;
+  --surface: #fff;
   --text: #111827;
   --text-secondary: #4b5563;
   --text-tertiary: #9ca3af;
+  --text-body: #374151;
   --accent: #6366f1;
   --accent-hover: #4f46e5;
+  --accent-selection: rgba(99, 102, 241, 0.15);
   --border: #e5e7eb;
   --border-light: #f0f0f0;
+  --quote-border: #d0d0d0;
+  --orb-purple: rgba(236, 200, 255, 0.25);
+  --orb-purple-edge: rgba(200, 180, 255, 0.12);
+  --orb-blue: rgba(200, 230, 255, 0.2);
+  --orb-blue-edge: rgba(180, 220, 255, 0.1);
+  --orb-rose: rgba(255, 200, 210, 0.18);
+  --orb-rose-edge: rgba(255, 180, 200, 0.08);
   --font-serif: 'Newsreader', Georgia, serif;
   --font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1117;
+    --bg-secondary: #1a1b26;
+    --surface: #1e1f2b;
+    --text: #e5e7eb;
+    --text-secondary: #9ca3af;
+    --text-tertiary: #6b7280;
+    --text-body: #b0b5bf;
+    --accent: #818cf8;
+    --accent-hover: #a5b4fc;
+    --accent-selection: rgba(129, 140, 248, 0.25);
+    --border: #2d2f3a;
+    --border-light: #22232e;
+    --quote-border: #3a3c4a;
+    --orb-purple: rgba(130, 100, 180, 0.12);
+    --orb-purple-edge: rgba(100, 80, 160, 0.06);
+    --orb-blue: rgba(80, 130, 180, 0.1);
+    --orb-blue-edge: rgba(60, 110, 160, 0.05);
+    --orb-rose: rgba(180, 100, 120, 0.1);
+    --orb-rose-edge: rgba(160, 80, 100, 0.05);
+  }
 }
 
 *, *::before, *::after {
@@ -21,6 +55,7 @@
 }
 
 html {
+  color-scheme: light dark;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -46,7 +81,7 @@ body::before {
   max-width: 700px;
   max-height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(236, 200, 255, 0.25) 0%, rgba(200, 180, 255, 0.12) 40%, transparent 70%);
+  background: radial-gradient(circle, var(--orb-purple) 0%, var(--orb-purple-edge) 40%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -61,7 +96,7 @@ body::after {
   max-width: 600px;
   max-height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(200, 230, 255, 0.2) 0%, rgba(180, 220, 255, 0.1) 40%, transparent 70%);
+  background: radial-gradient(circle, var(--orb-blue) 0%, var(--orb-blue-edge) 40%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -81,11 +116,11 @@ body::after {
   height: 50vw;
   max-width: 550px;
   max-height: 550px;
-  background: radial-gradient(circle, rgba(255, 200, 210, 0.18) 0%, rgba(255, 180, 200, 0.08) 40%, transparent 70%);
+  background: radial-gradient(circle, var(--orb-rose) 0%, var(--orb-rose-edge) 40%, transparent 70%);
 }
 
 ::selection {
-  background: rgba(99, 102, 241, 0.15);
+  background: var(--accent-selection);
 }
 
 a {
@@ -168,7 +203,7 @@ a:hover {
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.65;
-  color: #374151;
+  color: var(--text-body);
   white-space: pre-line;
 }
 
@@ -216,7 +251,7 @@ a:hover {
   border: 1px solid var(--accent);
   border-radius: 4px;
   padding: 0.5rem 0.6rem;
-  background: #fff;
+  background: var(--surface);
 }
 
 /* --- Bio Edit --- */
@@ -238,7 +273,7 @@ a:hover {
   padding: 0.2rem 0.6rem;
   border: 1px solid var(--border);
   border-radius: 4px;
-  background: #fff;
+  background: var(--surface);
   color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.15s var(--ease);
@@ -264,7 +299,7 @@ a:hover {
 /* --- Quote --- */
 
 .quote {
-  border-left: 1.5px solid #d0d0d0;
+  border-left: 1.5px solid var(--quote-border);
   padding: 0 0 0 1.25rem;
   margin: 2.5rem 0;
   background: none;
@@ -277,7 +312,7 @@ a:hover {
   font-weight: 400;
   font-style: normal;
   line-height: 1.8;
-  color: #374151;
+  color: var(--text-body);
   letter-spacing: 0.01em;
 }
 
@@ -465,7 +500,7 @@ a:hover {
 }
 
 .timeline-delete:hover {
-  color: #c44;
+  color: #e55;
 }
 
 .admin-active .timeline-delete {
@@ -521,7 +556,7 @@ a:hover {
   padding: 0.35rem 0.5rem;
   border: 1px solid var(--border);
   border-radius: 4px;
-  background: #fff;
+  background: var(--surface);
   color: var(--text);
   outline: none;
   transition: border-color 0.15s var(--ease);
