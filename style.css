@@ -26,25 +26,26 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f1117;
-    --bg-secondary: #1a1b26;
-    --surface: #1e1f2b;
-    --text: #e5e7eb;
-    --text-secondary: #9ca3af;
-    --text-tertiary: #6b7280;
-    --text-body: #b0b5bf;
+    /* Feynman-style neutrals: canvas #171717, elevated UI #262626 */
+    --bg: #171717;
+    --bg-secondary: #262626;
+    --surface: #262626;
+    --text: #ffffff;
+    --text-secondary: #a3a3a3;
+    --text-tertiary: #737373;
+    --text-body: #d4d4d4;
     --accent: #818cf8;
     --accent-hover: #a5b4fc;
-    --accent-selection: rgba(129, 140, 248, 0.25);
-    --border: #2d2f3a;
-    --border-light: #22232e;
-    --quote-border: #3a3c4a;
-    --orb-purple: rgba(130, 100, 180, 0.12);
-    --orb-purple-edge: rgba(100, 80, 160, 0.06);
-    --orb-blue: rgba(80, 130, 180, 0.1);
-    --orb-blue-edge: rgba(60, 110, 160, 0.05);
-    --orb-rose: rgba(180, 100, 120, 0.1);
-    --orb-rose-edge: rgba(160, 80, 100, 0.05);
+    --accent-selection: rgba(129, 140, 248, 0.22);
+    --border: #404040;
+    --border-light: #2a2a2a;
+    --quote-border: #404040;
+    --orb-purple: rgba(120, 120, 140, 0.08);
+    --orb-purple-edge: rgba(90, 90, 110, 0.04);
+    --orb-blue: rgba(100, 120, 150, 0.07);
+    --orb-blue-edge: rgba(70, 90, 120, 0.035);
+    --orb-rose: rgba(130, 110, 115, 0.06);
+    --orb-rose-edge: rgba(100, 85, 90, 0.03);
   }
 }
 
