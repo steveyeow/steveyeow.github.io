@@ -131,6 +131,21 @@ html.effective-dark .theme-toggle .theme-icon--sun {
   display: block;
 }
 
+/* Detached from social row: viewport chrome, not a “link” */
+.theme-toggle--fixed {
+  position: fixed;
+  top: max(1.1rem, env(safe-area-inset-top, 0px));
+  right: max(1.1rem, env(safe-area-inset-right, 0px));
+  z-index: 2;
+  padding: 0.4rem;
+  border-radius: 8px;
+  transition: color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+
+.theme-toggle--fixed:hover {
+  background-color: var(--border-light);
+}
+
 body {
   font-family: var(--font-serif);
   background: var(--bg);
