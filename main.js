@@ -1,6 +1,53 @@
 (() => {
   'use strict';
 
+  const THEME_KEY = 'steve_theme';
+
+  function isEffectiveDark() {
+    const t = localStorage.getItem(THEME_KEY);
+    if (t === 'dark') return true;
+    if (t === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function applyThemeFromStorage() {
+    const root = document.documentElement;
+    const t = localStorage.getItem(THEME_KEY);
+    if (t === 'dark') root.setAttribute('data-theme', 'dark');
+    else if (t === 'light') root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+    root.classList.toggle('effective-dark', isEffectiveDark());
+  }
+
+  function syncThemeToggleLabel(btn) {
+    if (!btn) return;
+    btn.setAttribute('aria-label', isEffectiveDark() ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  function initTheme() {
+    applyThemeFromStorage();
+    const btn = document.getElementById('themeToggle');
+    syncThemeToggleLabel(btn);
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const next = isEffectiveDark() ? 'light' : 'dark';
+        localStorage.setItem(THEME_KEY, next);
+        applyThemeFromStorage();
+        syncThemeToggleLabel(btn);
+      });
+    }
+    try {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      const onChange = () => {
+        if (!localStorage.getItem(THEME_KEY)) applyThemeFromStorage();
+      };
+      if (mq.addEventListener) mq.addEventListener('change', onChange);
+      else mq.addListener(onChange);
+    } catch { /* empty */ }
+  }
+
+  initTheme();
+
   const STORAGE_KEY = 'steve_tweets_local';
   const HIDDEN_KEY = 'steve_tweets_hidden';
   const ADMIN_KEY = 'steve_admin';
